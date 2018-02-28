@@ -6,6 +6,11 @@ namespace xelviewerService
 {
     class Program
     {
+        static object[] services = new object[] {
+           new ExampleCalculatorService(),
+           new RepeatService()
+        };
+
         static void Main(string[] args)
         {
             Console.WriteLine("starting");
@@ -20,19 +25,27 @@ namespace xelviewerService
         }
     }
     
-    class ConsoleServer
-    {
-        static object[] services = new object[] {
-           new ExampleCalculatorService()
-        };
-    }
-    
     public class ExampleCalculatorService : JsonRpcService
     {
         [JsonRpcMethod]
         private double add(double l, double r)
         {
             return l+r;
+        }
+
+        [JsonRpcMethod]
+        private int addInt(int l, int r)
+        {
+            return l + r;
+        }
+    }
+
+    public class RepeatService : JsonRpcService
+    {
+        [JsonRpcMethod]
+        private string repeat(string l)
+        {
+            return l;
         }
     }
 }
